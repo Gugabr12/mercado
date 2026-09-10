@@ -96,6 +96,10 @@ export class HorizontalCardCarousel {
 
     gsap.set(this.track, { x: 0 });
     this.refresh();
+
+    if (import.meta.env?.DEV) {
+      (window.__hcc ||= []).push(this);
+    }
   }
 
   /* ---------------- medição ---------------- */

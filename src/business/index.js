@@ -2,22 +2,25 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 /* ------------------------------------------------------------------
-   Dobra 5 — "Conta Negócio": o mesmo reveal por scroll de "Muito
-   mais que uma conta" (ver src/mais-conta/index.js). O título e cada
-   card do carrossel fazem um fade + leve subida conforme entram na
-   tela, sempre atrelado à posição do scroll (scrub), nunca autoplay
-   — reversível ao rolar para cima.
+   Dobra 5 — "Conta Negócio": reveal por scroll do texto da esquerda
+   (eyebrow, título, setas) — fade + leve subida atrelados ao scroll
+   (scrub), reversível ao rolar para cima. Nunca autoplay.
 
-   Só mexe em opacity/y dos cards: não conflita com o x do track
-   controlado pelo HorizontalCardCarousel (modules/horizontal-card-carousel.js).
+   Os CARDS ficam de fora deste reveal de propósito: quem cuida deles é
+   o HorizontalCardCarousel (translate no track). Card não recebe
+   opacity/scale/stagger — ele só é recortado pela viewport.
 ------------------------------------------------------------------ */
 
 export function initBusiness({ reducedMotion } = {}) {
   const section = document.querySelector('.business');
-  const heading = section?.querySelector('.business__title');
-  const cards = Array.from(section?.querySelectorAll('.business-card') ?? []);
-  const targets = [heading, ...cards].filter(Boolean);
-  if (!section || targets.length === 0) return null;
+  if (!section) return null;
+
+  const targets = [
+    section.querySelector('.business__eyebrow'),
+    section.querySelector('.business__title'),
+    section.querySelector('.business__nav'),
+  ].filter(Boolean);
+  if (targets.length === 0) return null;
 
   if (reducedMotion) {
     gsap.set(targets, { opacity: 1, y: 0 });
