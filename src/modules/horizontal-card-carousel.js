@@ -99,6 +99,7 @@ export class HorizontalCardCarousel {
 
     if (import.meta.env?.DEV) {
       (window.__hcc ||= []).push(this);
+      window.__hccGsap = gsap;
     }
   }
 
