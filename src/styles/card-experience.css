@@ -1,0 +1,245 @@
+/* ==================================================================
+   DOBRA 3 — EXPERIÊNCIA DO CARTÃO 3D
+   A seção externa fornece a distância de scroll; a cena fica pinada.
+
+   ESCALA
+   O frame final do Figma é autorado em 1920×1111 (a imagem de
+   referência é esse mesmo frame a 55,9%). Como o cartão é dimensionado
+   pela ALTURA da viewport (46svh), todo o resto da composição também é
+   — assim o conjunto se mantém idêntico em 1920×1080, 1600×900 ou
+   1366×768, e nunca se espalha em telas ultralargas.
+
+     1svh = 1% da altura da viewport ≈ 11,11px no artboard original
+   ================================================================== */
+
+.card-experience {
+  position: relative;
+  height: 420vh;
+  background: var(--stage);
+}
+
+.sticky-scene {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--stage);
+  color: var(--stage-ink);
+  isolation: isolate;
+}
+
+/* Iluminação ambiente — nunca uma mancha cinza evidente. */
+.scene__glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(55, 60, 68, 0.35),
+    rgba(10, 11, 13, 0.1) 35%,
+    rgba(5, 6, 8, 0) 65%
+  );
+}
+
+.scene__canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-out);
+}
+
+.sticky-scene.is-ready .scene__canvas {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------------
+   Benefícios
+
+   Cada pílula é ancorada pela BORDA VOLTADA PARA O CARTÃO, a uma
+   distância medida no Figma e convertida para svh. O `min(...)` é só
+   uma trava para viewports estreitas e altas, onde a distância em svh
+   passaria da largura disponível.
+------------------------------------------------------------------ */
+
+.benefits {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+}
+
+.benefit {
+  position: absolute;
+  translate: 0 -50%;
+  opacity: 0;
+}
+
+.benefit--1 {
+  top: 43.56%;
+  right: calc(50% + min(28.1svh, 22%));
+}
+
+.benefit--2 {
+  top: 44.73%;
+  left: calc(50% + min(26.4svh, 20.7%));
+}
+
+.benefit--3 {
+  top: 62.74%;
+  right: calc(50% + min(23.8svh, 18.6%));
+}
+
+.benefit--4 {
+  top: 62.02%;
+  left: calc(50% + min(20.5svh, 16%));
+}
+
+.benefit__pill {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(8px, 1.3svh, 15px);
+  height: clamp(40px, min(6.4svh, 5.2vw), 68px);
+  padding-inline: clamp(12px, 1.44svh, 18px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(12, 13, 16, 0.7);
+  backdrop-filter: blur(6px);
+  white-space: nowrap;
+  font-size: clamp(9.5px, min(1.42svh, 1.15vw), 15px);
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #f5f5f5;
+}
+
+.benefit__icon {
+  width: clamp(16px, min(2.3svh, 1.9vw), 25px);
+  height: clamp(16px, min(2.3svh, 1.9vw), 25px);
+  object-fit: contain;
+  opacity: 0.92;
+}
+
+.benefit__icon--coin {
+  /* única cor de destaque permitida na cena */
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------------
+   Copy final
+------------------------------------------------------------------ */
+
+.final-copy {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 74.5%;
+  translate: -50% 0;
+  width: min(100% - var(--gutter) * 2, clamp(300px, 42svh, 470px));
+  text-align: center;
+}
+
+.final-copy__label {
+  display: block;
+  opacity: 0;
+  font-size: clamp(10px, 1.4svh, 15px);
+  font-weight: 700;
+  letter-spacing: 0.125em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.final-copy__headline {
+  margin-top: clamp(6px, 0.9svh, 12px);
+  opacity: 0;
+  font-size: clamp(28px, 4.9svh, 52px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ------------------------------------------------------------------
+   Mobile — layout próprio, não o desktop reduzido
+------------------------------------------------------------------ */
+
+@media (max-width: 1023px) {
+  .card-experience {
+    height: 470svh;
+  }
+
+  .benefits {
+    inset: auto 0 auto 0;
+    top: 55%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: min(100% - 48px, 420px);
+    margin-inline: auto;
+  }
+
+  .benefit {
+    position: static;
+    translate: none;
+    display: flex;
+    justify-content: center;
+  }
+
+  .benefit__pill {
+    justify-content: center;
+    width: 100%;
+    height: 44px;
+    padding-inline: 10px;
+    gap: 8px;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.15;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+
+  .benefit__icon {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 auto;
+  }
+
+  .final-copy {
+    top: auto;
+    bottom: 7svh;
+    width: min(100% - 48px, 420px);
+  }
+
+  .final-copy__label {
+    font-size: 11px;
+  }
+
+  .final-copy__headline {
+    margin-top: 10px;
+    font-size: clamp(28px, 8.2vw, 34px);
+  }
+}
+
+@media (max-width: 389px) {
+  .benefits {
+    grid-template-columns: 1fr;
+    width: min(100% - 40px, 300px);
+    gap: 8px;
+  }
+
+  .benefit__pill {
+    height: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene__canvas {
+    transition: none;
+  }
+}

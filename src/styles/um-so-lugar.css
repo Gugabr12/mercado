@@ -1,0 +1,358 @@
+/* ==================================================================
+   "TUDO EM UM SÓ LUGAR" — banner estático, sem scroll-driven JS
+   Entre o hero e o cartão 3D.
+
+   Medidas travadas 1:1 no frame desktop do Figma (1920px):
+     container ......... 1179px, centralizado (margin-inline: auto)
+     cabeçalho ......... 715px + gap 102px + 326px  (centrado)
+     conteúdo inferior . 568px + gap 16px + 584px   (centrado)
+     gap vertical ...... 23px
+     espaço vertical externo ~82px (responsabilidade da seção)
+================================================================== */
+
+.um-so-lugar {
+  display: flex;
+  min-height: 699px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 23px;
+  flex-shrink: 0;
+  align-self: stretch;
+  padding-block: 82px;
+  padding-inline: var(--gutter);
+  background: var(--ml-yellow); /* #ffe600 — fill do Figma */
+  color: var(--ink);
+}
+
+.um-so-lugar__inner {
+  width: 100%;
+  max-width: 1179px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+}
+
+/* ------------------------------------------------------------------
+   CABEÇALHO — linha horizontal, colunas 715 / 326, gap 102
+------------------------------------------------------------------ */
+
+.um-so-lugar__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center; /* Figma 279:82 — grupo 715+102+326 centrado */
+  gap: 102px;
+  width: 100%;
+}
+
+.um-so-lugar__intro {
+  flex: 0 0 715px;
+  width: 715px;
+  min-width: 0;
+}
+
+.um-so-lugar__eyebrow {
+  font-family: var(--font-proxima);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 56px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #000;
+}
+
+.um-so-lugar__title {
+  width: 502px;
+  max-width: 100%;
+  font-family: var(--font-proxima);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2; /* Figma 279:87 — 57.6px */
+  letter-spacing: -1.12px; /* Figma 279:87 — tracking negativo */
+  color: #000;
+}
+
+.um-so-lugar__desc {
+  flex: 0 0 326px;
+  width: 326px;
+  min-width: 0;
+  font-family: var(--font-proxima);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+/* ------------------------------------------------------------------
+   CONTEÚDO INFERIOR — [CARDS 568] gap 16 [IMAGEM 584]
+------------------------------------------------------------------ */
+
+.um-so-lugar__body {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Figma 279:89 — grupo 568+16+584 centrado */
+  gap: 16px;
+  width: 100%;
+}
+
+.um-so-lugar__list {
+  flex: 0 0 568px;
+  width: 568px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* <ol> não é zerado pelo reset global — sem isto os cards herdam
+     margin-block: 1em (empurra a lista pra baixo e estoura a altura) e
+     padding-inline-start: 40px (desalinha os cards do título). */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.um-so-lugar__item {
+  position: relative;
+  width: 100%;
+  height: 103px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--page); /* #f5f5f5 */
+  cursor: pointer;
+  transition: background-color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+}
+
+/* "acende" no hover / foco por teclado — clareia e ganha sombra sutil */
+.um-so-lugar__item:hover,
+.um-so-lugar__item:focus-visible {
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(5, 30, 80, 0.18);
+}
+
+/* número gigante (140,56px), colado no topo e cortado pelo overflow do
+   card — é decorativo e proposital, não deve encolher pra caber */
+.um-so-lugar__num {
+  position: absolute;
+  left: 30px;
+  top: -3px;
+  width: 144px;
+  font-family: var(--font-proxima);
+  font-size: 140.56px;
+  font-weight: 400;
+  line-height: 168.67px;
+  letter-spacing: 2px;
+  color: #cdcdcd;
+  pointer-events: none;
+  transition: color 0.25s var(--ease-out);
+}
+
+/* Figma 233:96 / 233:107 — caixa 166px e tracking negativo nos cards 02 e 03 */
+.um-so-lugar__item:nth-child(2) .um-so-lugar__num,
+.um-so-lugar__item:nth-child(3) .um-so-lugar__num {
+  width: 166px;
+  letter-spacing: -4.3728px;
+}
+
+.um-so-lugar__item:hover .um-so-lugar__num,
+.um-so-lugar__item:focus-visible .um-so-lugar__num {
+  color: #000;
+}
+
+.um-so-lugar__label {
+  position: absolute;
+  left: 267px;
+  top: 64px;
+  font-family: var(--font-proxima);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  color: rgba(5, 5, 7, 0.8);
+  transition: color 0.25s var(--ease-out);
+}
+
+.um-so-lugar__item:hover .um-so-lugar__label,
+.um-so-lugar__item:focus-visible .um-so-lugar__label {
+  color: #000;
+}
+
+/* ------------------------------------------------------------------
+   IMAGEM — Figma 279:97: container 584×340, radius 24, overflow hidden.
+   A foto entra maior que o container (135% × 106,54%) e deslocada
+   (-19,06%, -3,24%), reproduzindo o crop do fill do Figma.
+------------------------------------------------------------------ */
+
+.um-so-lugar__media {
+  flex: 0 0 584px;
+  width: 584px;
+  height: 340px;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #d9d9d9;
+}
+
+/* duas <img> empilhadas: o hover num item troca qual fica por cima com
+   crossfade (opacity), em vez de um corte seco de src */
+.um-so-lugar__media img {
+  position: absolute;
+  left: -19.06%;
+  top: -3.24%;
+  width: 135%;
+  height: 106.54%;
+  max-width: none;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-out);
+}
+
+.um-so-lugar__media img.is-active {
+  opacity: 1;
+}
+
+/* ==================================================================
+   Abaixo de 1024px o container de 1179px não cabe — as colunas voltam
+   a ser fluidas mantendo a PROPORÇÃO do Figma (715/326 e 568/595).
+   Nenhuma medida desktop é alterada; só destravadas para telas menores.
+================================================================== */
+
+@media (max-width: 1023px) {
+  .um-so-lugar {
+    padding-inline: 34px;
+    padding-block: 48px;
+  }
+
+  .um-so-lugar__inner {
+    max-width: 100%;
+  }
+
+  .um-so-lugar__head {
+    gap: clamp(24px, 6vw, 102px);
+  }
+
+  .um-so-lugar__intro {
+    flex: 715 1 0;
+    width: auto;
+  }
+
+  .um-so-lugar__title {
+    width: 100%;
+    max-width: 502px;
+  }
+
+  .um-so-lugar__desc {
+    flex: 326 1 0;
+    width: auto;
+  }
+
+  .um-so-lugar__list {
+    flex: 568 1 0;
+    width: auto;
+  }
+
+  .um-so-lugar__media {
+    flex: 584 1 0;
+    width: auto;
+    height: auto;
+    aspect-ratio: 584 / 340;
+    border-radius: 19px;
+  }
+
+  .um-so-lugar__media img {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Mobile (Figma phone) — cabeçalho e corpo empilham
+------------------------------------------------------------------ */
+
+@media (max-width: 767px) {
+  .um-so-lugar {
+    width: 100%;
+    height: auto;
+    padding: 33px 0 24px; /* Figma: 33 topo / 24 base */
+  }
+
+  .um-so-lugar__inner {
+    width: min(100%, 421px);
+    gap: 23px;
+    padding-inline: 16px;
+  }
+
+  .um-so-lugar__head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 23px;
+  }
+
+  .um-so-lugar__intro,
+  .um-so-lugar__desc,
+  .um-so-lugar__list,
+  .um-so-lugar__media {
+    flex: none;
+    width: 100%;
+  }
+
+  /* Figma pede 36px/Proxima Nova; com o fallback (Nunito Sans, mais largo)
+     36px estoura os 398px e quebra em 4 linhas — o clamp mantém as duas
+     linhas do Figma em telas de ~360–430px. */
+  .um-so-lugar__title {
+    max-width: none;
+    font-size: clamp(26px, 7.4vw, 33px);
+    line-height: 1.18;
+  }
+
+  .um-so-lugar__desc {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .um-so-lugar__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* no Figma mobile a foto vem antes da lista */
+  .um-so-lugar__media {
+    order: -1;
+    aspect-ratio: 392 / 228;
+    border-radius: 16px;
+  }
+
+  .um-so-lugar__list {
+    gap: 11px;
+  }
+
+  .um-so-lugar__item {
+    height: 71px;
+    border-radius: 16px;
+  }
+
+  /* número gigante colado no topo-esquerdo, cortado pelo overflow do card */
+  .um-so-lugar__num,
+  .um-so-lugar__item:nth-child(2) .um-so-lugar__num,
+  .um-so-lugar__item:nth-child(3) .um-so-lugar__num {
+    left: 21px;
+    top: -2px;
+    width: auto;
+    font-size: 97px;
+    line-height: 116px;
+    letter-spacing: 0.02em;
+  }
+
+  /* rótulo absoluto, ~47% da largura e na metade de baixo do card */
+  .um-so-lugar__label {
+    left: 47%;
+    top: 44px;
+    font-size: 14px;
+    line-height: 1.2; /* 16.8 / 14 */
+  }
+}

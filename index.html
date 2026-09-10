@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f5f5f5" />
+    <meta
+      name="description"
+      content="Cartão de crédito Mercado Pago: até 18x sem juros, sem anuidade e cashback com Meli+."
+    />
+    <title>Cartão de crédito — Mercado Pago</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Proxima Nova (Adobe Fonts / Typekit) — kit expõe os pesos 400 e 700 -->
+    <link rel="stylesheet" href="https://use.typekit.net/nbe7non.css" />
+
+    <link rel="preload" as="image" href="/assets/hero-bg.webp" />
+    <link rel="preload" as="image" href="/assets/hero-subject.webp" />
+    <link rel="preload" as="image" href="/assets/card-front.webp" crossorigin />
+    <link rel="preload" as="image" href="/assets/card-back.webp" crossorigin />
+  </head>
+
+  <body>
+    <!-- ================= DOBRA 1 — HERO ================= -->
+    <header class="hero" aria-label="Destaque">
+      <div class="hero__frame">
+        <!-- a máscara do notch vale só para a mídia; o navbar fica fora dela.
+             A foto entra em duas camadas — cena ao fundo e a pessoa recortada
+             por cima — com o texto no meio (efeito "texto atrás do sujeito"). -->
+        <div class="hero__media">
+          <img class="hero__layer hero__layer--bg" src="/assets/hero-bg.webp" alt="" />
+
+          <!-- no mobile a hero usa uma única imagem chapada (já recortada
+               394×600 no Figma) no lugar das duas camadas do efeito -->
+          <img
+            class="hero__layer hero__layer--flat"
+            src="/assets/teste.png"
+            alt="Mulher segurando o cartão de crédito Mercado Pago"
+          />
+
+          <div class="hero__copy">
+            <p class="hero__eyebrow">Crédito e débito</p>
+            <h1 class="hero__title">Aproveite para comprar em até 18x sem juros</h1>
+            <a class="hero__cta" href="#">Abrir conta grátis</a>
+          </div>
+
+          <img
+            class="hero__layer hero__layer--subject"
+            src="/assets/hero-subject.webp"
+            alt="Mulher segurando o cartão de crédito Mercado Pago"
+          />
+        </div>
+
+        <nav class="navbar" aria-label="Navegação principal">
+          <a class="navbar__logo" href="#" aria-label="Mercado Pago — página inicial">
+            <img src="/assets/mercado-pago-logo.png" alt="" width="150" height="37" />
+          </a>
+
+          <ul class="navbar__menu">
+            <li><button type="button" class="navbar__item">Conta Digital<span class="navbar__caret" aria-hidden="true"></span></button></li>
+            <li><button type="button" class="navbar__item">Conta Negócio<span class="navbar__caret" aria-hidden="true"></span></button></li>
+            <li><button type="button" class="navbar__item">Ajuda e Segurança<span class="navbar__caret" aria-hidden="true"></span></button></li>
+          </ul>
+
+          <div class="navbar__actions">
+            <a class="navbar__link" href="#">Iniciar sessão</a>
+            <a class="navbar__cta" href="#">Abrir conta grátis</a>
+          </div>
+
+          <button type="button" class="navbar__burger" aria-expanded="false" aria-label="Abrir menu">
+            <span></span><span></span><span></span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- ================= TUDO EM UM SÓ LUGAR ================= -->
+      <section class="um-so-lugar" aria-labelledby="um-so-lugar-title">
+        <div class="um-so-lugar__inner">
+          <div class="um-so-lugar__head">
+            <div class="um-so-lugar__intro">
+              <p class="um-so-lugar__eyebrow">Tudo em um só lugar</p>
+              <h2 class="um-so-lugar__title" id="um-so-lugar-title">
+                Uma conta para facilitar todos os seus dias.
+              </h2>
+            </div>
+            <p class="um-so-lugar__desc">
+              Pague, transfira, receba e acompanhe seu dinheiro de um jeito simples, direto pelo app.
+            </p>
+          </div>
+
+          <div class="um-so-lugar__body">
+          <!-- data-image: a foto que aparece quando o mouse passa por cima
+               (ou o item ganha foco pelo teclado). Trocar o arquivo em
+               public/assets/ quando as fotos definitivas chegarem — não
+               precisa mexer em mais nada. -->
+          <ol class="um-so-lugar__list">
+            <li class="um-so-lugar__item" tabindex="0" data-image="/assets/um-so-lugar-01.webp">
+              <span class="um-so-lugar__num" aria-hidden="true">01</span>
+              <span class="um-so-lugar__label">Pague do seu jeito</span>
+            </li>
+            <li class="um-so-lugar__item" tabindex="0" data-image="/assets/um-so-lugar-02.png">
+              <span class="um-so-lugar__num" aria-hidden="true">02</span>
+              <span class="um-so-lugar__label">Transfira sem complicação</span>
+            </li>
+            <li class="um-so-lugar__item" tabindex="0" data-image="/assets/um-so-lugar-03.png">
+              <span class="um-so-lugar__num" aria-hidden="true">03</span>
+              <span class="um-so-lugar__label">Tenha mais possibilidades</span>
+            </li>
+          </ol>
+
+          <!-- duas <img> empilhadas: a troca no hover faz um crossfade
+               entre elas em vez de estourar a imagem sem transição -->
+          <div class="um-so-lugar__media">
+            <img
+              class="is-active"
+              src="/assets/um-so-lugar-01.webp"
+              alt="Cliente pagando com cartão numa maquininha Mercado Pago"
+              loading="lazy"
+            />
+            <img src="/assets/um-so-lugar-01.webp" alt="" aria-hidden="true" loading="lazy" />
+          </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= DOBRA 3 — CARTÃO 3D ================= -->
+      <section class="card-experience" aria-labelledby="card-headline">
+        <div class="sticky-scene">
+          <div class="scene__glow" aria-hidden="true"></div>
+
+          <canvas class="scene__canvas" aria-hidden="true"></canvas>
+
+          <div class="benefits" aria-hidden="true">
+            <div class="benefit benefit--1" data-side="left">
+              <span class="benefit__pill">
+                <img class="benefit__icon" src="/assets/icons/cart.svg" alt="" width="26" height="26" />
+                <span>Até 18x sem juros</span>
+              </span>
+            </div>
+
+            <div class="benefit benefit--2" data-side="right">
+              <span class="benefit__pill">
+                <img class="benefit__icon benefit__icon--coin" src="/assets/icons/meli.png" alt="" width="26" height="25" />
+                <span>Cashback com Meli+</span>
+              </span>
+            </div>
+
+            <div class="benefit benefit--3" data-side="left">
+              <span class="benefit__pill">
+                <img class="benefit__icon" src="/assets/icons/calendar.svg" alt="" width="26" height="26" />
+                <span>Sem anuidade</span>
+              </span>
+            </div>
+
+            <div class="benefit benefit--4" data-side="right">
+              <span class="benefit__pill">
+                <img class="benefit__icon" src="/assets/icons/iphone.svg" alt="" width="26" height="26" />
+                <span>Controle total</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="final-copy">
+            <span class="final-copy__label">Cartão de crédito</span>
+            <h2 class="final-copy__headline" id="card-headline">
+              Liberdade para<br />você e seu bolso
+            </h2>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= MUITO MAIS QUE UMA CONTA =================
+           Nesta revisão do Figma (node 263:1815) a antiga lista de cards
+           amarelos virou foto + grade de ícones. Os 6 itens da grade são
+           os mesmos que viviam na extinta dobra "A conta completa" — o
+           Figma atual não repete mais aquele carrossel como seção à
+           parte, então o conteúdo foi consolidado aqui. -->
+      <section class="mais-conta" aria-labelledby="mais-conta-title">
+        <div class="mais-conta__inner">
+          <div class="mais-conta__media">
+            <img
+              src="/assets/mais-conta-hero.webp"
+              alt="Mulher segurando o cartão Mercado Pago na frente do rosto"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="mais-conta__content">
+            <p class="mais-conta__eyebrow">Muito mais que uma conta</p>
+            <h2 class="mais-conta__title" id="mais-conta-title">
+              <span class="mais-conta__title-line">Seu dinheiro pode</span>
+              <span class="mais-conta__title-line">fazer mais por você.</span>
+            </h2>
+
+            <ul class="mais-conta__grid">
+              <li class="mais-conta__item">
+                <img class="mais-conta__icon" src="/assets/icons/credito.png" alt="" loading="lazy" />
+                <h3>Linha de crédito</h3>
+                <p>Compre parcelado sem ter um cartão.</p>
+              </li>
+              <li class="mais-conta__item">
+                <img class="mais-conta__icon" src="/assets/icons/pix.png" alt="" loading="lazy" />
+                <h3>Pix</h3>
+                <p>Pague, receba e transfira sem taxas.</p>
+              </li>
+              <li class="mais-conta__item">
+                <img class="mais-conta__icon" src="/assets/icons/portabilidade.png" alt="" loading="lazy" />
+                <h3>Portabilidade</h3>
+                <p>Traga seu salário para liberar cartão de crédito e Meli+.</p>
+              </li>
+              <li class="mais-conta__item">
+                <img class="mais-conta__icon" src="/assets/icons/debito.png" alt="" loading="lazy" />
+                <h3>Cartão de débito</h3>
+                <p>Use o saldo da sua conta onde estiver.</p>
+              </li>
+              <li class="mais-conta__item">
+                <img class="mais-conta__icon" src="/assets/icons/investimentos.png" alt="" loading="lazy" />
+                <h3>Investimentos</h3>
+                <p>Faça seu dinheiro trabalhar para você.</p>
+              </li>
+              <li class="mais-conta__item">
+                <img class="mais-conta__icon" src="/assets/icons/contas-servicos.png" alt="" loading="lazy" />
+                <h3>Contas e serviços</h3>
+                <p>Pague boletos pelo app e fuja das filas.</p>
+              </li>
+            </ul>
+
+            <a class="mais-conta__cta" href="#">Conhecer conta</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= DOBRA 5 — CONTA NEGÓCIO =================
+           Carrossel por scroll horizontal nativo, com setas
+           (src/modules/railCarousel.js). O título e os cards fazem
+           fade + subida atrelados ao scroll (src/business/index.js). -->
+      <section class="business" aria-labelledby="business-title">
+        <div class="business__inner">
+          <div class="business__copy">
+            <p class="business__eyebrow">conta negócio</p>
+            <h2 class="business__title" id="business-title">Soluções para seu negócio ganhar</h2>
+
+            <div class="business__nav">
+              <button type="button" class="business__arrow" data-dir="-1" aria-label="Slide anterior">‹</button>
+              <button type="button" class="business__arrow" data-dir="1" aria-label="Próximo slide">›</button>
+            </div>
+          </div>
+
+          <div class="business__rail">
+            <ul class="business__track">
+              <li class="business-card">
+                <img class="business-card__media" src="/assets/business-vendas.png" alt="" loading="lazy" />
+                <div class="business-card__body">
+                  <h3>Vendas</h3>
+                  <p>Maquininha, Link de pagamento, Pix e Tap to pay com as menores taxas.</p>
+                </div>
+              </li>
+              <li class="business-card">
+                <img class="business-card__media" src="/assets/business-credito.png" alt="" loading="lazy" />
+                <div class="business-card__body">
+                  <h3>Crédito</h3>
+                  <p>Empréstimo e cartão com limite que aumenta conforme o uso.</p>
+                </div>
+              </li>
+              <li class="business-card">
+                <img class="business-card__media" src="/assets/business-gestao.png" alt="" loading="lazy" />
+                <div class="business-card__body">
+                  <h3>Gestão</h3>
+                  <p>Ferramentas de gestão para evoluir seu negócio.</p>
+                </div>
+              </li>
+              <li class="business-card">
+                <div class="business-card__media" aria-hidden="true"></div>
+                <div class="business-card__body">
+                  <h3>Rendimento</h3>
+                  <p>O dinheiro das suas vendas rende até 120% do CDI, sem precisar mover nada.</p>
+                </div>
+              </li>
+              <li class="business-card">
+                <div class="business-card__media" aria-hidden="true"></div>
+                <div class="business-card__body">
+                  <h3>Pagamentos</h3>
+                  <p>Pague fornecedores, boletos e a folha da equipe. Pix e transferências grátis e ilimitados.</p>
+                </div>
+              </li>
+              <li class="business-card">
+                <div class="business-card__media" aria-hidden="true"></div>
+                <div class="business-card__body">
+                  <h3>Suporte</h3>
+                  <p>WhatsApp 24 horas e consultores especializados sempre que o negócio precisar.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= BAIXE O APP ================= -->
+      <section class="download-cta" aria-labelledby="download-cta-title">
+        <div class="download-cta__inner">
+          <h2 class="download-cta__title" id="download-cta-title">
+            Tenha o controle do seu dinheiro, esteja onde estiver
+          </h2>
+          <div class="download-cta__badges">
+            <a href="#"><img src="/assets/app-store.webp" alt="Baixar na App Store" loading="lazy" /></a>
+            <a href="#"><img src="/assets/google-play.webp" alt="Disponível no Google Play" loading="lazy" /></a>
+          </div>
+
+          <div class="download-cta__media" aria-hidden="true">
+            <img src="/assets/download-phone.png" alt="Pessoa segurando um celular com o app Mercado Pago" loading="lazy" />
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ================= RODAPÉ ================= -->
+    <footer class="site-footer">
+      <div class="site-footer__top">
+        <div class="site-footer__brand">
+          <img src="/assets/mercado-pago-logo.png" alt="Mercado Pago" width="142" height="37" />
+        </div>
+
+        <div class="site-footer__col">
+          <h3>Conta Digital</h3>
+          <ul>
+            <li><a href="#">Cofrinhos</a></li>
+            <li><a href="#">Dinheiro na conta</a></li>
+            <li><a href="#">Cartão de crédito</a></li>
+            <li><a href="#">Linha de crédito</a></li>
+            <li><a href="#">Mago, seu assistente</a></li>
+            <li><a href="#">Pagamentos e tarifas</a></li>
+            <li><a href="#">Seguros</a></li>
+          </ul>
+        </div>
+
+        <div class="site-footer__col">
+          <h3>Conta Negócio</h3>
+          <ul>
+            <li><a href="#">Maquininhas point</a></li>
+            <li><a href="#">Point Tap</a></li>
+            <li><a href="#">Tap to Pay no iPhone</a></li>
+            <li><a href="#">Link de pagamento</a></li>
+            <li><a href="#">Pix</a></li>
+            <li><a href="#">Checkout para loja virtual</a></li>
+            <li><a href="#">Planos de assinatura</a></li>
+            <li><a href="#">Sistema de Gestão</a></li>
+            <li><a href="#">Cartão de crédito</a></li>
+            <li><a href="#">Empréstimos</a></li>
+            <li><a href="#">Rendimentos e investimentos</a></li>
+            <li><a href="#">Mago, seu assistente</a></li>
+            <li><a href="#">Mercado Livre Negócios</a></li>
+            <li><a href="#">Revendedor Point</a></li>
+            <li><a href="#">Programa de parcerias</a></li>
+            <li><a href="#">Developers</a></li>
+          </ul>
+        </div>
+
+        <div class="site-footer__col">
+          <h3>Ajuda e Segurança</h3>
+          <ul>
+            <li><a href="#">Canais para entrar em contato</a></li>
+            <li><a href="#">Me roubaram</a></li>
+            <li><a href="#">Acho que estão usando minha conta</a></li>
+            <li><a href="#">Dicas de segurança</a></li>
+          </ul>
+        </div>
+
+        <div class="site-footer__col site-footer__col--about">
+          <h3>Sobre</h3>
+          <ul>
+            <li><a href="#">Convide e ganhe</a></li>
+            <li><a href="#">Contato comercial</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Termos e políticas</a></li>
+            <li><a href="#">Investor relations</a></li>
+            <li><a href="#">Como usar sua conta com segurança</a></li>
+            <li><a href="#">Como cuidamos da sua privacidade</a></li>
+            <li><a href="#">Informações sobre seguros</a></li>
+            <li><a href="#">Acessibilidade</a></li>
+            <li><a href="#">Ouvidoria</a></li>
+            <li><a href="#">Canal de Libras</a></li>
+            <li><a href="#">Informações Adicionais</a></li>
+            <li><a href="#">Baixar logo oficial</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="site-footer__bottom">
+        <nav class="site-footer__quicklinks" aria-label="Links rápidos">
+          <a href="#">Pague com código QR</a>
+          <a href="#">Carregue seu Bilhete Único</a>
+          <a href="#">Pague suas contas</a>
+          <a href="#">Pague com a Linha de Crédito</a>
+        </nav>
+
+        <div class="site-footer__legal">
+          <p class="site-footer__copyright">
+            Copyright © 2026 Mercado Pago Instituição de Pagamento Ltda. CNPJ n.º 10.573.521/0001-91 / Av. das
+            Nações Unidas, nº 3.003, Bonfim, Osasco/SP - CEP 06233-903
+          </p>
+          <div class="site-footer__social">
+            <a href="#">Facebook</a>
+            <a href="#">X</a>
+            <a href="#">YouTube</a>
+            <a href="#">Linkedin</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

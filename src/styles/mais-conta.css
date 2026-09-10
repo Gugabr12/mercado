@@ -1,0 +1,191 @@
+/* ==================================================================
+   "MUITO MAIS QUE UMA CONTA"
+
+   Nesta revisão do Figma (node 263:1815) a lista de cards amarelos
+   virou foto + grade de ícones. Os 6 itens da grade (Linha de
+   crédito, Pix, Portabilidade, Cartão de débito, Investimentos,
+   Contas e serviços) são os mesmos que antes viviam na dobra "A
+   conta completa" — esse carrossel saiu da página porque o Figma
+   atual não o repete mais como seção à parte, e sim consolidado
+   aqui. Ver LEIA-ME.md para o histórico completo da seção.
+
+   O scroll ainda comanda algo: a foto e os itens da grade entram
+   com um fade + leve subida conforme aparecem na tela (ver
+   mais-conta/index.js), sempre dirigido pela posição do scroll,
+   nunca autoplay.
+================================================================== */
+
+.mais-conta {
+  padding: clamp(56px, 8vw, 120px) var(--gutter);
+  background: var(--page);
+}
+
+.mais-conta__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(40px, 6vw, 96px);
+  width: min(100% - 0px, var(--shell));
+  margin-inline: auto;
+}
+
+.mais-conta__media {
+  flex: 1 1 360px;
+  max-width: 420px;
+  border-radius: 28px;
+  overflow: clip;
+  aspect-ratio: 480 / 696;
+}
+
+.mais-conta__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mais-conta__content {
+  flex: 1 1 480px;
+}
+
+.mais-conta__eyebrow {
+  font-size: clamp(13px, 1vw, 16px);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.mais-conta__title {
+  margin-top: clamp(12px, 1.6vw, 16px);
+  font-size: clamp(28px, 3.6vw, 48px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: #000;
+}
+
+.mais-conta__title-line {
+  display: block;
+}
+
+/* ------------------------------------------------------------------
+   Grade de ícones — fundo azul-claro (#d3dff2, o mesmo do Figma)
+------------------------------------------------------------------ */
+
+.mais-conta__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(10px, 1.2vw, 16px);
+  margin-top: clamp(28px, 3.4vw, 40px);
+}
+
+.mais-conta__item {
+  padding: clamp(16px, 1.8vw, 24px) clamp(14px, 1.6vw, 20px) clamp(18px, 2vw, 24px);
+  border-radius: 18px;
+  background: #d3dff2;
+}
+
+.mais-conta__icon {
+  display: block;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  margin-bottom: clamp(16px, 2vw, 24px);
+}
+
+.mais-conta__item h3 {
+  font-size: clamp(15px, 1.2vw, 18px);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.mais-conta__item p {
+  margin-top: 6px;
+  font-size: clamp(11px, 0.9vw, 13px);
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.mais-conta__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: clamp(24px, 3vw, 32px);
+  height: 49px;
+  padding-inline: 24px;
+  border-radius: 10px;
+  background: var(--mp-blue);
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  transition: background-color 0.2s var(--ease-out);
+}
+
+.mais-conta__cta:hover {
+  background: var(--mp-blue-dark);
+}
+
+/* ------------------------------------------------------------------
+   Mobile — mesmo breakpoint do resto do site (1023px)
+------------------------------------------------------------------ */
+
+@media (max-width: 1023px) {
+  .mais-conta__inner {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
+
+  .mais-conta__media {
+    max-width: none;
+  }
+}
+
+/* Figma mobile (node do export): a grade continua em 3 colunas com
+   cards compactos — não cai para 2. Texto mantido em tamanho legível
+   (o export traz ~8px, resultado de o componente estar reduzido). */
+@media (max-width: 767px) {
+  .mais-conta__media {
+    border-radius: 24px;
+    aspect-ratio: 392 / 543;
+  }
+
+  .mais-conta__title {
+    font-size: clamp(27px, 8.6vw, 36px);
+    line-height: 1.2;
+  }
+
+  .mais-conta__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 28px;
+  }
+
+  .mais-conta__item {
+    padding: 14px 10px 12px;
+    border-radius: 13px;
+  }
+
+  .mais-conta__icon {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 10px;
+  }
+
+  .mais-conta__item h3 {
+    font-size: 13px;
+    line-height: 1.2;
+  }
+
+  .mais-conta__item p {
+    margin-top: 4px;
+    font-size: 10.5px;
+    line-height: 1.35;
+  }
+
+  .mais-conta__cta {
+    height: 40px;
+    padding-inline: 20px;
+    border-radius: 7px;
+  }
+}

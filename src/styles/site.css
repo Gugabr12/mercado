@@ -1,0 +1,631 @@
+/* ==================================================================
+   DOBRA 1 — HERO
+   O recorte superior (notch) vem do path "Subtract" do Figma: o
+   navbar fica sobre o fundo claro, não sobre a foto.
+================================================================== */
+
+.hero {
+  padding: 40px var(--gutter) 25px;
+  background: var(--page);
+}
+
+.hero__frame {
+  position: relative;
+  width: min(100%, 1180px);
+  margin-inline: auto;
+  aspect-ratio: 1178.56 / 634.773;
+}
+
+/* O recorte do topo (notch) vem do path "Subtract" do Figma e vale para
+   as duas camadas da foto e para a copy — mas NÃO para o navbar, que
+   precisa aparecer justamente dentro do recorte. */
+.hero__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  -webkit-mask-image: url('/assets/hero-mask.svg');
+  mask-image: url('/assets/hero-mask.svg');
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+/* As duas camadas foram niveladas na mesma tela (2800x1238), então o
+   mesmo `object-fit: cover` com o mesmo `object-position` mantém as duas
+   em registro em qualquer proporção — é isso que faz o texto ficar ATRÁS
+   da pessoa e À FRENTE da cena, sem deformar a foto quando o frame muda
+   de proporção no mobile.
+
+   O 21% horizontal reproduz o corte do Figma: a arte é mais larga que o
+   frame e sobra mais pela direita. */
+.hero__layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 21% 50%;
+  pointer-events: none;
+}
+
+.hero__layer--bg {
+  z-index: 0;
+}
+
+.hero__layer--subject {
+  z-index: 2;
+}
+
+/* imagem chapada só do mobile — ver breakpoint 767px */
+.hero__layer--flat {
+  display: none;
+  z-index: 1;
+  object-position: center;
+}
+
+.hero__copy {
+  position: absolute;
+  z-index: 1;
+  left: 2.93%;
+  top: 24.4%;
+  width: min(40%, 440px);
+  color: #f5f5f5;
+}
+
+.hero__eyebrow {
+  font-size: clamp(11px, 1.36vw, 16px);
+  font-weight: 700;
+  letter-spacing: 0.125em;
+  text-transform: uppercase;
+}
+
+.hero__title {
+  margin-top: clamp(6px, 0.8vw, 10px);
+  font-size: clamp(26px, 4.75vw, 56px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.hero__cta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: clamp(16px, 2vw, 24px);
+  height: clamp(38px, 4.2vw, 50px);
+  padding-inline: clamp(14px, 1.4vw, 17px);
+  border-radius: clamp(7px, 0.82vw, 10px);
+  background: var(--mp-blue);
+  font-size: clamp(14px, 1.63vw, 19px);
+  font-weight: 700;
+  color: #fff;
+  transition: background-color 0.2s var(--ease-out);
+}
+
+.hero__cta:hover {
+  background: var(--mp-blue-dark);
+}
+
+.navbar {
+  position: absolute;
+  z-index: 3;
+  inset: 0 0 auto;
+  height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 2.4vw, 32px);
+  padding-inline: clamp(16px, 3vw, 40px);
+}
+
+.navbar__logo img {
+  width: clamp(112px, 8vw, 150px);
+  height: auto;
+}
+
+.navbar__menu {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 1.6vw, 24px);
+}
+
+.navbar__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  color: var(--ink);
+  white-space: nowrap;
+  padding: 6px 0;
+}
+
+.navbar__caret {
+  width: 8.5px;
+  height: 4px;
+  background: currentColor;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transition: transform 0.2s var(--ease-out);
+}
+
+.navbar__item:hover .navbar__caret {
+  transform: translateY(1px);
+}
+
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.navbar__link,
+.navbar__cta {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding-inline: 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background-color 0.2s var(--ease-out);
+}
+
+.navbar__link {
+  color: var(--mp-blue);
+}
+
+.navbar__link:hover {
+  background: rgba(52, 131, 250, 0.1);
+}
+
+.navbar__cta {
+  background: var(--mp-blue);
+  color: #fff;
+}
+
+.navbar__cta:hover {
+  background: var(--mp-blue-dark);
+}
+
+.navbar__burger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+}
+
+.navbar__burger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--ink);
+}
+
+/* ==================================================================
+   DOBRA 5 — CONTA NEGÓCIO (Vendas / Crédito / Gestão)
+
+   Volta a ter cards nesta revisão do Figma (node 263:1815) — uma
+   versão anterior tinha tirado a foto e deixado só o texto. A antiga
+   dobra "A conta completa" (carrossel de ícones) saiu da página: seu
+   conteúdo foi consolidado em "Muito mais que uma conta" — ver
+   styles/mais-conta.css.
+================================================================== */
+
+.business {
+  padding: clamp(56px, 8vw, 120px) 0;
+  background: var(--ml-yellow);
+  overflow: hidden;
+}
+
+.business__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(32px, 4vw, 64px);
+  width: min(100% - var(--gutter) * 2, var(--shell));
+  margin-inline: auto;
+}
+
+.business__copy {
+  flex: 0 1 380px;
+}
+
+.business__eyebrow {
+  font-size: clamp(13px, 1vw, 16px);
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.business__title {
+  margin-top: clamp(16px, 2vw, 24px);
+  font-size: clamp(28px, 3.6vw, 48px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #000;
+}
+
+.business__nav {
+  display: flex;
+  gap: 12px;
+  margin-top: clamp(28px, 3.4vw, 44px);
+}
+
+.business__arrow {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  font-size: 22px;
+  line-height: 1;
+  color: #fff;
+  transition: transform 0.2s var(--ease-out), opacity 0.2s var(--ease-out);
+}
+
+.business__arrow:hover {
+  transform: scale(1.06);
+}
+
+.business__arrow[disabled] {
+  opacity: 0.35;
+  cursor: default;
+  transform: none;
+}
+
+.business__rail {
+  flex: 1 1 420px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* sem scroll-behavior: smooth — a transição das setas é 100% controlada
+     pelo rAF em railCarousel.js; deixar o CSS "suavizar" também faz as
+     duas animações brigarem e o resultado fica truncado. */
+  -webkit-overflow-scrolling: touch;
+}
+
+.business__rail::-webkit-scrollbar {
+  display: none;
+}
+
+.business__track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  padding-block: 4px;
+}
+
+.business-card {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  border-radius: 24px;
+  overflow: clip;
+  background: #36320d;
+}
+
+.business-card__media {
+  display: block;
+  width: 100%;
+  aspect-ratio: 484 / 437;
+  object-fit: cover;
+  background: #fff;
+}
+
+.business-card__body {
+  padding: 24px 24px 32px;
+}
+
+.business-card__body h3 {
+  font-size: clamp(22px, 2vw, 28px);
+  font-weight: 700;
+  color: #f5f5f5;
+}
+
+.business-card__body p {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(245, 245, 245, 0.85);
+}
+
+/* ------------------------------------------------------------------
+   Reel — transição de corte horizontal entre duas fotos (full-bleed)
+
+   As duas fotos preenchem o mesmo quadro (overflow: hidden). O
+   progresso 0→1 (--reel-progress, animado em src/business/reel.js):
+     Foto 1 → translateY de 0 a -100%  (sobe e sai pelo topo)
+     Foto 2 → translateY de +100% a 0  (sobe entrando pela base)
+   As duas na mesma velocidade, então a base da Foto 1 encosta sempre
+   no topo da Foto 2: a linha divisória é reta e varre a tela de
+   baixo para cima. O -1px na Foto 2 é só uma folga anti-serrilhado
+   para nunca abrir um fio entre elas.
+------------------------------------------------------------------ */
+
+.business__reel {
+  --reel-progress: 0;
+  position: relative;
+  width: 100vw;
+  max-width: 100%;
+  margin-inline: auto;
+  margin-top: clamp(48px, 7vw, 96px);
+  height: clamp(340px, 58vh, 620px);
+  overflow: hidden;
+  background: #000;
+}
+
+.business__reel-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.business__reel-photo--1 {
+  transform: translate3d(0, calc(var(--reel-progress) * -100%), 0);
+}
+
+.business__reel-photo--2 {
+  transform: translate3d(0, calc((1 - var(--reel-progress)) * 100% - 1px), 0);
+}
+
+/* ------------------------------------------------------------------
+   Breakpoints
+------------------------------------------------------------------ */
+
+@media (max-width: 1023px) {
+  .navbar__menu {
+    display: none;
+  }
+
+  /* Figma mobile: "Iniciar sessão" fica visível na barra, à direita,
+     antes do menu-sanduíche; "Abrir conta grátis" só no dropdown */
+  .navbar__actions {
+    margin-left: auto;
+  }
+
+  .navbar__actions .navbar__cta {
+    display: none;
+  }
+
+  .navbar {
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  /* no mobile a navbar fica sobre a foto do hero — texto e traços claros */
+  .navbar__link {
+    color: #f5f5f5;
+  }
+
+  .navbar__burger span {
+    background: #f5f5f5;
+  }
+
+  .navbar.is-open .navbar__link {
+    color: var(--mp-blue);
+  }
+
+  .navbar__burger {
+    display: flex;
+  }
+
+  .navbar.is-open .navbar__menu,
+  .navbar.is-open .navbar__actions {
+    display: flex;
+    position: absolute;
+    left: clamp(16px, 3vw, 40px);
+    right: clamp(16px, 3vw, 40px);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  }
+
+  .navbar.is-open .navbar__actions .navbar__cta {
+    display: inline-flex;
+  }
+
+  .navbar.is-open .navbar__menu {
+    top: 66px;
+  }
+
+  .navbar.is-open .navbar__actions {
+    top: 190px;
+    margin-left: 0;
+  }
+
+  .navbar.is-open .navbar__item {
+    justify-content: space-between;
+    padding: 10px 8px;
+  }
+
+  .navbar.is-open .navbar__link,
+  .navbar.is-open .navbar__cta {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Figma mobile: o card do hero é um retângulo arredondado simples
+     (sem o notch do desktop), com a copy centralizada no topo e o
+     CTA no rodapé do card. */
+  .hero {
+    padding: 12px 16px 20px;
+  }
+
+  .hero__frame {
+    aspect-ratio: 398 / 600;
+  }
+
+  .hero__media {
+    -webkit-mask-image: none;
+    mask-image: none;
+    border-radius: 19px;
+  }
+
+  .navbar {
+    inset: 16px 16px auto;
+    height: 44px;
+    justify-content: flex-start;
+    gap: 10px;
+    padding-inline: 12px;
+    border-radius: 14px;
+    background: #fff;
+  }
+
+  .navbar__logo img {
+    width: 112px;
+  }
+
+  .navbar__link {
+    color: var(--ink);
+    font-size: 11px;
+  }
+
+  .navbar__burger {
+    padding: 7px;
+  }
+
+  .navbar__burger span {
+    background: var(--ink);
+  }
+
+  /* no mobile as duas camadas do efeito dão lugar a uma imagem única
+     (teste.png, já recortada 394×600) */
+  .hero__layer--bg,
+  .hero__layer--subject {
+    display: none;
+  }
+
+  .hero__layer--flat {
+    display: block;
+  }
+
+  /* no mobile a copy inteira fica À FRENTE da foto: a pessoa está
+     deslocada para a direita (object-position 82%), então o texto
+     centralizado cai sobre o fundo e continua legível */
+  .hero__copy {
+    left: 50%;
+    top: 13%;
+    bottom: 5%;
+    z-index: 3;
+    transform: translateX(-50%);
+    width: min(92%, 394px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero__eyebrow {
+    font-size: 14px;
+    letter-spacing: 0.08em;
+  }
+
+  /* Figma pede 40px/Proxima; com o fallback (Nunito Sans) o clamp
+     segura o título em ~3 linhas centradas sem estourar a largura */
+  .hero__title {
+    font-size: clamp(25px, 8.2vw, 36px);
+    line-height: 1.16;
+    letter-spacing: -0.01em;
+  }
+
+  .hero__cta {
+    margin-top: auto;
+    height: 40px;
+    padding-inline: 20px;
+    border-radius: 7px;
+    font-size: 14px;
+  }
+
+  /* Figma mobile: cabeçalho e setas centralizados; as setas descem
+     para depois do carrossel (display:contents no .business__copy
+     joga eyebrow/título/setas como irmãos diretos do inner). */
+  .business {
+    padding: 40px 0;
+  }
+
+  .business__inner {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .business__copy {
+    display: contents;
+  }
+
+  .business__eyebrow {
+    order: 1;
+    width: 100%;
+    text-align: center;
+  }
+
+  .business__title {
+    order: 2;
+    margin-top: 0;
+    max-width: 300px;
+    text-align: center;
+    font-size: clamp(28px, 9vw, 36px);
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  .business__rail {
+    order: 3;
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .business__nav {
+    order: 4;
+    margin-top: 0;
+    justify-content: center;
+  }
+
+  .business__arrow {
+    width: 48px;
+    height: 48px;
+    background: #36320d;
+  }
+
+  .business-card {
+    width: min(74vw, 252px);
+    border-radius: 16px;
+  }
+
+  .business-card__body {
+    padding: 18px 18px 22px;
+  }
+
+  .business-card__body h3 {
+    font-size: 17px;
+  }
+
+  .business-card__body p {
+    margin-top: 8px;
+    font-size: 12px;
+  }
+
+  .business__track {
+    padding-inline: 0;
+  }
+
+  .business__reel {
+    margin-top: 32px;
+    height: clamp(300px, 78vw, 460px);
+  }
+}

@@ -1,0 +1,260 @@
+/* ==================================================================
+   "BAIXE O APP" + RODAPÉ
+
+   Faltavam por completo na página até esta revisão — vêm do node
+   263:1815 do Figma (frames "Frame 66" e "Footer"). Layout fiel à
+   estrutura real (colunas Conta Digital / Conta Negócio / Ajuda e
+   Segurança / Sobre + barra inferior com links rápidos, copyright e
+   redes sociais); os links usam href="#" como o resto do site,
+   trocar pelas URLs reais quando existirem.
+================================================================== */
+
+.download-cta {
+  position: relative;
+  height: 760px;
+  padding: 0 var(--gutter);
+  overflow: hidden;
+  background: var(--page);
+}
+
+.download-cta__inner {
+  position: relative;
+  width: min(100%, 1179px);
+  height: 100%;
+  margin-inline: auto;
+}
+
+.download-cta__title {
+  position: absolute;
+  left: 101px;
+  top: 189px;
+  width: 474px;
+  max-width: 100%;
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 57.6px;
+  letter-spacing: 0;
+  color: #353537;
+}
+
+.download-cta__badges {
+  position: absolute;
+  left: 101px;
+  top: 461px;
+  display: flex;
+  gap: 13.19px;
+  margin-top: 0;
+}
+
+.download-cta__media {
+  position: absolute;
+  left: 549px;
+  top: -150px;
+  width: 1105px;
+  height: 1026px;
+}
+
+.download-cta__media img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: auto;
+  height: 1026px;
+  max-width: none;
+  object-fit: contain;
+}
+
+.download-cta__badges img {
+  width: 133.41px;
+  height: 43.62px;
+  border-radius: 5.58px;
+}
+
+/* ------------------------------------------------------------------
+   Rodapé
+------------------------------------------------------------------ */
+
+.site-footer {
+  background: var(--page);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.site-footer__top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(32px, 4vw, 52px);
+  width: min(100% - var(--gutter) * 2, var(--shell));
+  margin-inline: auto;
+  padding: clamp(40px, 6vw, 64px) 0;
+}
+
+.site-footer__brand {
+  flex: 0 0 auto;
+}
+
+.site-footer__brand img {
+  width: 142px;
+  height: auto;
+}
+
+.site-footer__col {
+  flex: 1 1 170px;
+  min-width: 150px;
+}
+
+.site-footer__col h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.site-footer__col--about h3 {
+  color: rgba(51, 51, 51, 0.6);
+}
+
+.site-footer__col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.site-footer__col a {
+  font-size: 13px;
+  line-height: 1.25;
+  color: #333;
+}
+
+.site-footer__col a:hover {
+  text-decoration: underline;
+}
+
+.site-footer__bottom {
+  background: #f7f7f7;
+}
+
+.site-footer__quicklinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(16px, 2vw, 24px);
+  width: min(100% - var(--gutter) * 2, var(--shell));
+  margin-inline: auto;
+  padding: clamp(24px, 3vw, 32px) 0 clamp(16px, 2vw, 20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.site-footer__quicklinks a {
+  font-size: 12px;
+  color: #333;
+  opacity: 0.8;
+}
+
+.site-footer__quicklinks a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.site-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  width: min(100% - var(--gutter) * 2, var(--shell));
+  margin-inline: auto;
+  padding: clamp(16px, 2vw, 24px) 0 clamp(24px, 3vw, 32px);
+}
+
+.site-footer__copyright {
+  max-width: 720px;
+  font-size: 11px;
+  line-height: 1.35;
+  color: #333;
+  opacity: 0.8;
+}
+
+.site-footer__social {
+  display: flex;
+  gap: 16px;
+}
+
+.site-footer__social a {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  opacity: 0.8;
+}
+
+.site-footer__social a:hover {
+  opacity: 1;
+}
+
+@media (max-width: 1023px) {
+  .download-cta {
+    height: auto;
+    min-height: 760px;
+  }
+
+  .download-cta__media {
+    left: 42%;
+    top: -80px;
+    transform: scale(0.7);
+    transform-origin: top left;
+  }
+
+  .site-footer__legal {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Figma mobile: fluxo vertical centralizado — sem posicionamento
+     absoluto. Título, badges e o celular empilhados e centrados. */
+  .download-cta {
+    height: auto;
+    min-height: 0;
+    padding: 44px 16px 0;
+  }
+
+  .download-cta__inner {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 34px;
+  }
+
+  .download-cta__title {
+    position: static;
+    left: auto;
+    top: auto;
+    width: min(100%, 406px);
+    text-align: center;
+    font-size: clamp(27px, 8.6vw, 36px);
+    line-height: 1.2;
+  }
+
+  .download-cta__badges {
+    position: static;
+    left: auto;
+    top: auto;
+  }
+
+  .download-cta__media {
+    position: static;
+    left: auto;
+    top: auto;
+    width: min(112%, 445px);
+    height: auto;
+    transform: none;
+  }
+
+  .download-cta__media img {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+}

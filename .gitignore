@@ -1,0 +1,15 @@
+# dependências
+node_modules/
+
+# build
+dist/
+
+# logs / caches
+*.log
+.DS_Store
+.vite/
+node_modules/.vite/
+
+# editor
+.vscode/
+.idea/
