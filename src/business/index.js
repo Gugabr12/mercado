@@ -8,8 +8,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
    tela, sempre atrelado à posição do scroll (scrub), nunca autoplay
    — reversível ao rolar para cima.
 
-   Só mexe em opacity/transform: não conflita com o scroll horizontal
-   nativo do carrossel (modules/railCarousel.js).
+   Só mexe em opacity/y dos cards: não conflita com o x do track
+   controlado pelo HorizontalCardCarousel (modules/horizontal-card-carousel.js).
 ------------------------------------------------------------------ */
 
 export function initBusiness({ reducedMotion } = {}) {

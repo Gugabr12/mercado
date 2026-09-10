@@ -278,26 +278,23 @@
   transform: none;
 }
 
+/* viewport do HorizontalCardCarousel: o recorte lateral acontece aqui.
+   Sem scroll nativo — quem move é o GSAP no transform do track. */
 .business__rail {
   flex: 1 1 420px;
   min-width: 0;
-  overflow-x: auto;
-  scrollbar-width: none;
-  /* sem scroll-behavior: smooth — a transição das setas é 100% controlada
-     pelo rAF em railCarousel.js; deixar o CSS "suavizar" também faz as
-     duas animações brigarem e o resultado fica truncado. */
-  -webkit-overflow-scrolling: touch;
-}
-
-.business__rail::-webkit-scrollbar {
-  display: none;
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-y;
 }
 
 .business__track {
   display: flex;
+  flex-wrap: nowrap;
   gap: 20px;
   width: max-content;
   padding-block: 4px;
+  will-change: transform;
 }
 
 .business-card {

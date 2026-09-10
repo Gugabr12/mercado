@@ -12,12 +12,13 @@ gsap.registerPlugin(ScrollTrigger);
  * three + gsap não entrem no bundle inicial da página.
  */
 export function initScrollScenes(baseUrl) {
-  // ?motion=full ignora o prefers-reduced-motion do sistema. Vale também
-  // no build: em máquinas com "efeitos de animação" desligados no SO é a
-  // única forma de apresentar a experiência completa.
-  const forceMotion = new URLSearchParams(window.location.search).get('motion') === 'full';
+  // A experiência roda COMPLETA por padrão — o cartão 3D e os reveals são
+  // o conteúdo principal da página. Muitas máquinas Windows vêm com
+  // "efeitos de animação" desligado (prefers-reduced-motion: reduce) e aí
+  // a página inteira parecia estática. Quem realmente quer a versão calma
+  // acessa com ?motion=reduced.
   const reducedMotion =
-    !forceMotion && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    new URLSearchParams(window.location.search).get('motion') === 'reduced';
 
   initCardExperience(baseUrl, { reducedMotion });
   initMaisConta({ reducedMotion });

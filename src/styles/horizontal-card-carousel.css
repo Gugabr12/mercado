@@ -1,0 +1,40 @@
+/* ==================================================================
+   HorizontalCardCarousel — CSS estrutural (namespaced .hcc-*)
+
+   Só o necessário para a mecânica: a viewport recorta, o track é uma
+   fileira flex que anda no transform. Design (tamanho de card, cores,
+   setas) fica com o site que usa o componente.
+================================================================== */
+
+.hcc-carousel {
+  position: relative;
+}
+
+.hcc-viewport {
+  position: relative;
+  overflow: hidden; /* o recorte lateral acontece AQUI, não nos cards */
+  width: 100%;
+  touch-action: pan-y; /* deixa a página rolar na vertical; o horizontal é nosso */
+}
+
+.hcc-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: max-content;
+  will-change: transform;
+}
+
+.hcc-card {
+  flex: 0 0 auto; /* nunca encolhe: o card mantém 100% do tamanho ao atravessar a borda */
+}
+
+/* botão desabilitado: continua visível, sem interação */
+.hcc-prev[disabled],
+.hcc-next[disabled],
+.hcc-prev[aria-disabled='true'],
+.hcc-next[aria-disabled='true'] {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+}

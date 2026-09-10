@@ -1,8 +1,11 @@
 # dependências
 node_modules/
 
-# build
-dist/
+# build do site (regenerável com npm run build)
+dist/*
+# exceção: o bundle stand-alone do carrossel é entregável (npm run build:carousel)
+!dist/horizontal-card-carousel.js
+!dist/horizontal-card-carousel.css
 
 # logs / caches
 *.log
