@@ -97,10 +97,10 @@ export class HorizontalCardCarousel {
     gsap.set(this.track, { x: 0 });
     this.refresh();
 
-    if (import.meta.env?.DEV) {
-      (window.__hcc ||= []).push(this);
-      window.__hccGsap = gsap;
-    }
+    // handle de depuração (leve): permite inspecionar/dirigir o carrossel
+    // pelo console em qualquer ambiente — útil por ser componente reutilizável
+    (window.__hcc ||= []).push(this);
+    window.__hccGsap ||= gsap;
   }
 
   /* ---------------- medição ---------------- */

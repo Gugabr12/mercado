@@ -5,6 +5,7 @@ node_modules/
 dist/*
 # exceção: o bundle stand-alone do carrossel é entregável (npm run build:carousel)
 !dist/horizontal-card-carousel.js
+!dist/horizontal-card-carousel.umd.cjs
 !dist/horizontal-card-carousel.css
 
 # logs / caches

@@ -4,8 +4,4 @@
    `gsap` fica como dependência externa (peer). */
 import '../styles/horizontal-card-carousel.css';
 
-export {
-  HorizontalCardCarousel,
-  HorizontalCardCarousel as default,
-  initHorizontalCardCarousel,
-} from './horizontal-card-carousel.js';
+export { HorizontalCardCarousel, initHorizontalCardCarousel } from './horizontal-card-carousel.js';
