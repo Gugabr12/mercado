@@ -65,8 +65,11 @@
       media="(max-width: 767px)"
       fetchpriority="high"
     />
-    <link rel="preload" as="image" href="/assets/card-front.webp" crossorigin />
-    <link rel="preload" as="image" href="/assets/card-back.webp" crossorigin />
+    <!-- card-front/back.webp NÃO entram como preload: são texturas do
+         cartão 3D, e desde que esse módulo virou lazy (scroll-scenes.js,
+         só carrega perto da seção .card-experience) baixá-las de largada
+         só rouba banda/prioridade da imagem real do LCP acima. O
+         THREE.TextureLoader busca elas sozinho quando a cena inicializa. -->
   </head>
 
   <body>
