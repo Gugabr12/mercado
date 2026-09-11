@@ -1,6 +1,5 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { initCardExperience } from './card-experience/index.js';
 import { initMaisConta } from './mais-conta/index.js';
 import { initBusiness } from './business/index.js';
 import { initBusinessReel } from './business/reel.js';
@@ -20,8 +19,40 @@ export function initScrollScenes(baseUrl) {
   const reducedMotion =
     new URLSearchParams(window.location.search).get('motion') === 'reduced';
 
-  initCardExperience(baseUrl, { reducedMotion });
   initMaisConta({ reducedMotion });
   initBusiness({ reducedMotion });
   initBusinessReel({ reducedMotion });
+  initCardExperienceLazily(baseUrl, { reducedMotion });
+}
+
+/**
+ * O cartão 3D (three.js + PMREM + WebGLRenderer) é de longe a parte mais
+ * pesada do bundle — sozinho custa mais main-thread do que todo o resto
+ * da página somada. Ele fica numa dobra abaixo da hero + "tudo em um só
+ * lugar", então não há motivo pra pagar esse custo (e o TBT que ele gera)
+ * antes do usuário chegar perto dela: só entra quando a seção está a
+ * ~150px de aparecer na tela.
+ */
+function initCardExperienceLazily(baseUrl, options) {
+  const section = document.querySelector('.card-experience');
+  if (!section) return;
+
+  const load = () => import('./card-experience/index.js').then(({ initCardExperience }) =>
+    initCardExperience(baseUrl, options),
+  );
+
+  if (typeof IntersectionObserver !== 'function') {
+    load();
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      observer.disconnect();
+      load();
+    },
+    { rootMargin: '150px 0px' },
+  );
+  observer.observe(section);
 }
