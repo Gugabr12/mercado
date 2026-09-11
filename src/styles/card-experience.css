@@ -14,15 +14,20 @@
 
 .card-experience {
   position: relative;
+  /* volta a reservar a distância de scroll via CSS (presente desde o
+     1º paint do HTML) em vez do pin dinâmico do ScrollTrigger: o cartão
+     3D carrega lazy (só perto da seção — ver scroll-scenes.js), e o
+     spacer que o `pin:true` insere em tempo de execução aparecia bem na
+     hora em que o usuário chegava perto, dando um salto no layout.
+     160vh ainda é ~1/2 do que era (320vh) — cobre com folga a timeline
+     comprimida (start "top 75%" + end "+=1000") sem esse risco. */
+  height: 160vh;
   background: var(--stage);
-  /* sem altura fixa em vh: quem determina a distância de scroll da
-     experiência agora é o ScrollTrigger (start/end em timeline.js), que
-     insere o próprio spacer do tamanho exato — não há mais "vh a mais"
-     reservado só pra prolongar a rolagem. */
 }
 
 .sticky-scene {
-  position: relative; /* o pin (position: fixed) é aplicado pelo próprio ScrollTrigger */
+  position: sticky;
+  top: 0;
   height: 100svh;
   overflow: hidden;
   background: var(--stage);
@@ -172,6 +177,12 @@
 ------------------------------------------------------------------ */
 
 @media (max-width: 1023px) {
+  .card-experience {
+    /* svh (não vh): celular some/volta com a barra de endereço, e o
+       pin em CSS puro é sensível a essa altura mudar no meio do scroll */
+    height: 170svh;
+  }
+
   .benefits {
     inset: auto 0 auto 0;
     top: 55%;

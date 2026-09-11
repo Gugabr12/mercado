@@ -26,7 +26,7 @@ export function showFinalFrame(scene, elements) {
 }
 
 export function buildTimeline(scene, elements) {
-  const { stage, benefits, label, headline } = elements;
+  const { section, benefits, label, headline } = elements;
 
   benefits.forEach((benefit) => {
     gsap.set(benefit, { opacity: 0, y: 26, x: benefit.dataset.side === 'right' ? 10 : -10 });
@@ -37,26 +37,25 @@ export function buildTimeline(scene, elements) {
   const state = scene.state;
 
   /* ------------------------------------------------------------------
-     Pin nativo do ScrollTrigger (não mais `position: sticky` + altura
-     manual em vh na seção): o próprio ScrollTrigger insere o spacer do
-     tamanho exato de `end - start`, então não existe mais descompasso
-     entre "quanto a seção mede" e "quanto a timeline dura" — a folga de
-     scroll que travava a seção acabou.
+     O pin continua sendo o `position: sticky` do CSS (card-experience.css)
+     — não o `pin: true` do ScrollTrigger. O cartão 3D carrega lazy (só
+     perto da seção, ver scroll-scenes.js); um pin *dinâmico* insere seu
+     spacer só quando o JS termina de carregar, e isso dava um salto no
+     layout bem na hora em que o usuário chegava perto. O sticky do CSS
+     já existe desde o primeiro paint do HTML, sem esse risco.
 
      start "top 75%": a timeline já começa a andar com o topo da seção
      ainda a 25% do viewport por rolar — o cartão reage assim que a
      dobra aparece, não só depois de grudar no topo.
      end "+=1000": ~1000px de rolagem cobrem a experiência inteira (era
      a altura inteira da seção, 320vh/360svh — vários "vh" de rolagem
-     morta). scrub curto (0.45) mantém a resposta ao mouse/trackpad
-     ágil sem ficar trepidante. anticipatePin suaviza a entrada do pin.
+     morta). scrub curto (0.45) mantém a resposta ao mouse/trackpad ágil
+     sem ficar trepidante.
   ------------------------------------------------------------------ */
   const timeline = gsap.timeline({
     defaults: { ease: 'none' },
     scrollTrigger: {
-      trigger: stage,
-      pin: true,
-      anticipatePin: 1,
+      trigger: section,
       start: 'top 75%',
       end: '+=1000',
       scrub: 0.45,
