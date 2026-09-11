@@ -1,0 +1,14 @@
+# Cache de longo prazo para estáticos do build (Netlify / Cloudflare Pages
+# leem este arquivo automaticamente a partir de public/). Em outro host
+# (Vercel, Nginx, Apache…) a mesma regra precisa ser replicada na config
+# do próprio host — este arquivo não tem efeito lá.
+
+# imagens em /assets não mudam de nome quando o conteúdo muda (sem hash),
+# então cache "moderado" + revalidação evita servir arte desatualizada
+/assets/*
+  Cache-Control: public, max-age=604800, must-revalidate
+
+# bundles JS/CSS gerados pelo Vite (build.assetsDir = "bundle") já saem
+# com hash no nome — podem ser cacheados como imutáveis por 1 ano
+/bundle/*
+  Cache-Control: public, max-age=31536000, immutable

@@ -12,15 +12,59 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin />
+
+    <!-- Fontes carregadas via preload + troca de "media" (técnica padrão do
+         Google): o <link rel=stylesheet> normal bloqueia o primeiro paint
+         esperando o CSS baixar; assim o navegador baixa em paralelo e só
+         "liga" a folha quando chega, sem segurar a renderização.
+         O <noscript> garante a fonte certa se o JS estiver desligado. -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
     <!-- Proxima Nova (Adobe Fonts / Typekit) — kit expõe os pesos 400 e 700 -->
-    <link rel="stylesheet" href="https://use.typekit.net/nbe7non.css" />
+    <link rel="preload" as="style" href="https://use.typekit.net/nbe7non.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.typekit.net/nbe7non.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap"
+        rel="stylesheet"
+      />
+      <link rel="stylesheet" href="https://use.typekit.net/nbe7non.css" />
+    </noscript>
 
-    <link rel="preload" as="image" href="/assets/hero-bg.webp" />
-    <link rel="preload" as="image" href="/assets/hero-subject.webp" />
+    <!-- LCP: hero-subject (desktop) e a flat de mobile disputam o maior
+         elemento visível na primeira dobra — cada preload só baixa na sua
+         faixa de tela pra não gastar banda do celular com imagem de
+         desktop escondida por CSS (e vice-versa). -->
+    <link rel="preload" as="image" href="/assets/hero-bg.webp" media="(min-width: 768px)" />
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/hero-subject.webp"
+      media="(min-width: 768px)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/teste.webp"
+      media="(max-width: 767px)"
+      fetchpriority="high"
+    />
     <link rel="preload" as="image" href="/assets/card-front.webp" crossorigin />
     <link rel="preload" as="image" href="/assets/card-back.webp" crossorigin />
   </head>
@@ -39,8 +83,9 @@
                394×600 no Figma) no lugar das duas camadas do efeito -->
           <img
             class="hero__layer hero__layer--flat"
-            src="/assets/teste.png"
+            src="/assets/teste.webp"
             alt="Mulher segurando o cartão de crédito Mercado Pago"
+            fetchpriority="high"
           />
 
           <div class="hero__copy">
@@ -53,6 +98,7 @@
             class="hero__layer hero__layer--subject"
             src="/assets/hero-subject.webp"
             alt="Mulher segurando o cartão de crédito Mercado Pago"
+            fetchpriority="high"
           />
         </div>
 
@@ -105,11 +151,11 @@
               <span class="um-so-lugar__num" aria-hidden="true">01</span>
               <span class="um-so-lugar__label">Pague do seu jeito</span>
             </li>
-            <li class="um-so-lugar__item" tabindex="0" data-image="/assets/um-so-lugar-02.png">
+            <li class="um-so-lugar__item" tabindex="0" data-image="/assets/um-so-lugar-02.webp">
               <span class="um-so-lugar__num" aria-hidden="true">02</span>
               <span class="um-so-lugar__label">Transfira sem complicação</span>
             </li>
-            <li class="um-so-lugar__item" tabindex="0" data-image="/assets/um-so-lugar-03.png">
+            <li class="um-so-lugar__item" tabindex="0" data-image="/assets/um-so-lugar-03.webp">
               <span class="um-so-lugar__num" aria-hidden="true">03</span>
               <span class="um-so-lugar__label">Tenha mais possibilidades</span>
             </li>
@@ -257,21 +303,21 @@
           <div class="business__rail">
             <ul class="business__track">
               <li class="business-card">
-                <img class="business-card__media" src="/assets/business-vendas.png" alt="" loading="lazy" />
+                <img class="business-card__media" src="/assets/business-vendas.webp" alt="" loading="lazy" />
                 <div class="business-card__body">
                   <h3>Vendas</h3>
                   <p>Maquininha, Link de pagamento, Pix e Tap to pay com as menores taxas.</p>
                 </div>
               </li>
               <li class="business-card">
-                <img class="business-card__media" src="/assets/business-credito.png" alt="" loading="lazy" />
+                <img class="business-card__media" src="/assets/business-credito.webp" alt="" loading="lazy" />
                 <div class="business-card__body">
                   <h3>Crédito</h3>
                   <p>Empréstimo e cartão com limite que aumenta conforme o uso.</p>
                 </div>
               </li>
               <li class="business-card">
-                <img class="business-card__media" src="/assets/business-gestao.png" alt="" loading="lazy" />
+                <img class="business-card__media" src="/assets/business-gestao.webp" alt="" loading="lazy" />
                 <div class="business-card__body">
                   <h3>Gestão</h3>
                   <p>Ferramentas de gestão para evoluir seu negócio.</p>
@@ -315,7 +361,7 @@
           </div>
 
           <div class="download-cta__media" aria-hidden="true">
-            <img src="/assets/download-phone.png" alt="Pessoa segurando um celular com o app Mercado Pago" loading="lazy" />
+            <img src="/assets/download-phone.webp" alt="Pessoa segurando um celular com o app Mercado Pago" loading="lazy" />
           </div>
         </div>
       </section>
