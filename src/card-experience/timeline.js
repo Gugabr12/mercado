@@ -98,10 +98,13 @@ export function buildTimeline(scene, elements) {
     .to(state, { ...FINAL, duration: 0.05 }, 0.52);
 
   /* ---- Benefícios · com o cartão já assentado, cada pílula entra em
-     sequência — 60% a 77% da timeline ---- */
-  const cues = [0.6, 0.66, 0.72, 0.77];
+     sequência — 60% a 84,5% da timeline. Duração um pouco mais longa
+     que antes (0,035 -> 0,05) porque a pílula agora é uma caixa maior
+     e fixa (338px, ver card-experience.css) — um pop rápido demais
+     ficava seco nesse tamanho; alongar deixa a entrada mais suave. */
+  const cues = [0.6, 0.665, 0.73, 0.795];
   cues.forEach((at, index) => {
-    timeline.to(benefits[index], { opacity: 1, x: 0, y: 0, duration: 0.035, ease: 'power2.out' }, at);
+    timeline.to(benefits[index], { opacity: 1, x: 0, y: 0, duration: 0.05, ease: 'power2.out' }, at);
   });
 
   /* ---- Copy final · entra logo depois do último benefício, e ainda
