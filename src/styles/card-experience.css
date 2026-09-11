@@ -14,13 +14,15 @@
 
 .card-experience {
   position: relative;
-  height: 420vh;
   background: var(--stage);
+  /* sem altura fixa em vh: quem determina a distância de scroll da
+     experiência agora é o ScrollTrigger (start/end em timeline.js), que
+     insere o próprio spacer do tamanho exato — não há mais "vh a mais"
+     reservado só pra prolongar a rolagem. */
 }
 
 .sticky-scene {
-  position: sticky;
-  top: 0;
+  position: relative; /* o pin (position: fixed) é aplicado pelo próprio ScrollTrigger */
   height: 100svh;
   overflow: hidden;
   background: var(--stage);
@@ -170,10 +172,6 @@
 ------------------------------------------------------------------ */
 
 @media (max-width: 1023px) {
-  .card-experience {
-    height: 470svh;
-  }
-
   .benefits {
     inset: auto 0 auto 0;
     top: 55%;
