@@ -44,9 +44,10 @@ export function buildTimeline(scene, elements) {
      layout bem na hora em que o usuário chegava perto. O sticky do CSS
      já existe desde o primeiro paint do HTML, sem esse risco.
 
-     start "top 75%": a timeline já começa a andar com o topo da seção
-     ainda a 25% do viewport por rolar — o cartão reage assim que a
-     dobra aparece, não só depois de grudar no topo.
+     start "top 55%": meio-termo entre a versão que só reagia com a
+     seção 100% grudada no topo (lenta demais) e "top 75%" (reagia
+     cedo demais, com a seção ainda entrando). Com 55% a seção já está
+     bem estabelecida na tela antes de qualquer coisa se mexer.
      end "+=1000": ~1000px de rolagem cobrem a experiência inteira (era
      a altura inteira da seção, 320vh/360svh — vários "vh" de rolagem
      morta). scrub curto (0.45) mantém a resposta ao mouse/trackpad ágil
@@ -56,43 +57,49 @@ export function buildTimeline(scene, elements) {
     defaults: { ease: 'none' },
     scrollTrigger: {
       trigger: section,
-      start: 'top 75%',
+      start: 'top 55%',
       end: '+=1000',
       scrub: 0.45,
       invalidateOnRefresh: true,
       onUpdate: (self) => {
-        if (self.progress > 0.93) scene.enableParallax();
+        if (self.progress > 0.94) scene.enableParallax();
       },
     },
   });
 
-  /* ---- Fase 01 · 0–10,6% — o cartão surge quase de perfil ---- */
+  /* ---- Respiro · 0–12% — a seção já apareceu, mas o cartão ainda não
+     reage; é só esse intervalo sem tween (não um delay em segundos,
+     é uma fatia real da timeline) que dá o "chegou numa seção nova"
+     antes do cartão começar a se mexer. ---- */
+
+  /* ---- Fase 01 · 12–22,6% — o cartão surge quase de perfil ---- */
   timeline
-    .to(state, { dy: -0.085, z: -0.6, scale: 0.9, duration: 0.106 }, 0)
-    .to(state, { ry: -45 * DEG, rx: -0.045, rz: 0.045, duration: 0.106 }, 0)
+    .to(state, { dy: -0.085, z: -0.6, scale: 0.9, duration: 0.106 }, 0.12)
+    .to(state, { ry: -45 * DEG, rx: -0.045, rz: 0.045, duration: 0.106 }, 0.12)
 
-    /* ---- Fase 02 · 10,6–21,2% — primeira revelação da frente ---- */
-    .to(state, { ry: 0, rx: -0.02, rz: 0.02, duration: 0.106 }, 0.106)
-    .to(state, { dy: -0.02, z: 0.45, scale: 1.08, duration: 0.106 }, 0.106)
+    /* ---- Fase 02 · 22,6–33,2% — primeira revelação da frente ---- */
+    .to(state, { ry: 0, rx: -0.02, rz: 0.02, duration: 0.106 }, 0.226)
+    .to(state, { dy: -0.02, z: 0.45, scale: 1.08, duration: 0.106 }, 0.226)
 
-    /* ---- Fase 03 · 21,2–30,7% — segue girando até quase o perfil ---- */
-    .to(state, { ry: 90 * DEG, duration: 0.095 }, 0.212)
-    .to(state, { dy: 0, z: 0.1, scale: 1.02, duration: 0.095 }, 0.212)
+    /* ---- Fase 03 · 33,2–42,7% — segue girando até quase o perfil ---- */
+    .to(state, { ry: 90 * DEG, duration: 0.095 }, 0.332)
+    .to(state, { dy: 0, z: 0.1, scale: 1.02, duration: 0.095 }, 0.332)
 
-    /* ---- Fase 04 · 30,7–37,1% — o verso aparece ---- */
-    .to(state, { ry: 180 * DEG, rx: 0.01, rz: 0, duration: 0.064 }, 0.307)
+    /* ---- Fase 04 · 42,7–49,1% — o verso aparece ---- */
+    .to(state, { ry: 180 * DEG, rx: 0.01, rz: 0, duration: 0.064 }, 0.427)
 
-    /* ---- 37,1–40% — pequena pausa para ler o verso ---- */
-    .to(state, { ry: 180 * DEG, duration: 0.029 }, 0.371)
+    /* ---- 49,1–52% — pequena pausa para ler o verso ---- */
+    .to(state, { ry: 180 * DEG, duration: 0.029 }, 0.491)
 
-    /* ---- Fase 05 · 40–45% — 180 → 270 → 360, volta para a frente
+    /* ---- Fase 05 · 52–57% — 180 → 270 → 360, volta para a frente
            enquanto migra para a posição da composição final. A partir
-           daqui (45%) o cartão já está no estado principal. ---- */
-    .to(state, { ...FINAL, duration: 0.05 }, 0.4);
+           daqui (~57%) o cartão já está no estado, escala e rotação
+           principais. ---- */
+    .to(state, { ...FINAL, duration: 0.05 }, 0.52);
 
   /* ---- Benefícios · com o cartão já assentado, cada pílula entra em
-     sequência — 46% a 72% da timeline (janela pedida: 45–75%) ---- */
-  const cues = [0.46, 0.55, 0.64, 0.72];
+     sequência — 60% a 77% da timeline ---- */
+  const cues = [0.6, 0.66, 0.72, 0.77];
   cues.forEach((at, index) => {
     timeline.to(benefits[index], { opacity: 1, x: 0, y: 0, duration: 0.035, ease: 'power2.out' }, at);
   });
@@ -101,9 +108,9 @@ export function buildTimeline(scene, elements) {
      sobra folga (até 100%) pro cartão segurar o frame antes de a
      seção liberar o scroll pra próxima dobra ---- */
   timeline
-    .to(label, { opacity: 1, duration: 0.04 }, 0.78)
-    .to(headline, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.05 }, 0.81)
-    .to(state, { float: 1, duration: 0.04 }, 0.9);
+    .to(label, { opacity: 1, duration: 0.04 }, 0.81)
+    .to(headline, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.05 }, 0.83)
+    .to(state, { float: 1, duration: 0.04 }, 0.89);
 
   return timeline;
 }
