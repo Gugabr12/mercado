@@ -189,16 +189,21 @@
      em telas baixas ou quando o texto da pílula quebrava em 2 linhas,
      as duas caixas cresciam uma na direção da outra e se sobrepunham.
      Agora os dois entram no fluxo normal, empilhados dentro do próprio
-     .sticky-scene como um grupo só, ancorado perto da base: a distância
-     entre eles vem do `gap`, nunca se invadem, seja qual for a altura
-     real do conteúdo. */
+     .sticky-scene como um grupo só: a distância entre eles vem do
+     `gap`, nunca se invadem, seja qual for a altura real do conteúdo.
+
+     padding-top ~58svh (em vez de ancorar pela base com flex-end) faz
+     o grupo começar logo depois de onde o cartão termina (heightRatio
+     0,37 + centerRatio 0,3 em CardScene.js colocam a base do cartão
+     por volta de 48-49svh) — sem isso sobrava um vão morto enorme
+     entre o cartão e as pílulas. */
   .sticky-scene {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     gap: 20px;
-    padding-bottom: 6svh;
+    padding-top: 58svh;
   }
 
   .benefits {
@@ -220,8 +225,12 @@
   .benefit__pill {
     justify-content: center;
     width: 100%;
-    height: 44px;
-    padding-inline: 10px;
+    /* min-height, não height: "Cashback com Meli+" quebra em 2 linhas
+       nessa largura, e uma altura fixa fazia o texto vazar por cima do
+       contorno arredondado da pílula (e o ícone ficar desalinhado,
+       centralizado numa caixa menor que o conteúdo real). */
+    min-height: 44px;
+    padding: 6px 10px;
     gap: 8px;
     white-space: normal;
     text-align: center;
@@ -261,7 +270,7 @@
   }
 
   .benefit__pill {
-    height: 40px;
+    min-height: 40px;
   }
 }
 
