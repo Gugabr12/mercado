@@ -23,6 +23,18 @@
       as="style"
       href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap"
     />
+    <!-- o arquivo em si (subset "latin", os 4 pesos caem no mesmo woff2
+         variável) direto — sem isto o navegador só descobre essa URL
+         depois de baixar E interpretar o CSS acima, um RTT inteiro
+         depois; hero__eyebrow/hero__title (o que decide o LCP em boa
+         parte dos celulares) usam peso 700 dessa mesma fonte. -->
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="https://fonts.gstatic.com/s/nunitosans/v19/pe0AMImSLYBIv1o4X1M8ce2xCx3yop4tQpF_MeTm0lfUVwoNnq4CLz0_kJ3xzHGGVFM.woff2"
+      crossorigin
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap"
       rel="stylesheet"
