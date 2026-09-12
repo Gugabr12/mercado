@@ -184,14 +184,30 @@
     height: 170svh;
   }
 
+  /* Benefícios e copy final eram dois blocos com posição absoluta
+     independente (benefits em top:55%, final-copy em bottom:7svh) —
+     em telas baixas ou quando o texto da pílula quebrava em 2 linhas,
+     as duas caixas cresciam uma na direção da outra e se sobrepunham.
+     Agora os dois entram no fluxo normal, empilhados dentro do próprio
+     .sticky-scene como um grupo só, ancorado perto da base: a distância
+     entre eles vem do `gap`, nunca se invadem, seja qual for a altura
+     real do conteúdo. */
+  .sticky-scene {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    padding-bottom: 6svh;
+  }
+
   .benefits {
-    inset: auto 0 auto 0;
-    top: 55%;
+    position: static;
+    inset: auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     width: min(100% - 48px, 420px);
-    margin-inline: auto;
   }
 
   .benefit {
@@ -221,8 +237,9 @@
   }
 
   .final-copy {
-    top: auto;
-    bottom: 7svh;
+    position: static;
+    left: auto;
+    translate: none;
     width: min(100% - 48px, 420px);
   }
 
