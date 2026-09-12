@@ -12,9 +12,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://use.typekit.net" crossorigin />
 
-    <!-- Fontes carregadas via preload + troca de "media" (técnica padrão do
+    <!-- Fonte carregada via preload + troca de "media" (técnica padrão do
          Google): o <link rel=stylesheet> normal bloqueia o primeiro paint
          esperando o CSS baixar; assim o navegador baixa em paralelo e só
          "liga" a folha quando chega, sem segurar a renderização.
@@ -30,14 +29,6 @@
       media="print"
       onload="this.media='all'"
     />
-    <!-- Proxima Nova (Adobe Fonts / Typekit) — kit expõe os pesos 400 e 700 -->
-    <link rel="preload" as="style" href="https://use.typekit.net/nbe7non.css" />
-    <link
-      rel="stylesheet"
-      href="https://use.typekit.net/nbe7non.css"
-      media="print"
-      onload="this.media='all'"
-    />
     <noscript>
       <link
         href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap"
@@ -45,6 +36,20 @@
       />
       <link rel="stylesheet" href="https://use.typekit.net/nbe7non.css" />
     </noscript>
+    <script>
+      // Proxima Nova (Adobe Fonts/Typekit) só é usada abaixo da dobra
+      // ("Tudo em um só lugar", rodapé) — nada acima da dobra depende
+      // dela (o hero já cai no fallback Nunito Sans). Preconectar e
+      // preload essa folha competia por banda/prioridade com o que
+      // realmente decide FCP/LCP no mobile, então ela só entra depois
+      // que a página termina de carregar.
+      window.addEventListener('load', function () {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://use.typekit.net/nbe7non.css';
+        document.head.appendChild(link);
+      });
+    </script>
 
     <!-- LCP: hero-subject (desktop) e a flat de mobile disputam o maior
          elemento visível na primeira dobra — cada preload só baixa na sua
